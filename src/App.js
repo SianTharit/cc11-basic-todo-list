@@ -12,6 +12,8 @@ const initialTodoList = [
     { title: "Entertain", completed: true, id: uuidv4() },
 ];
 
+// initialTodoList.findIndex((el) => el.id === id) // return ค่า = -1 เพราะมันหาไม่เจอ
+
 function App() {
     const [todoList, setTodoList] = useState(initialTodoList);
 
@@ -22,13 +24,38 @@ function App() {
         setTodoList(oldTodoList);
     };
 
+    const removeTodo = (id) => {
+        const idx = todoList.findIndex((el) => el.id === id);
+        if (idx !== -1) {
+            const oldTodoList = [...todoList];
+            oldTodoList.splice(idx, 1);
+            setTodoList(oldTodoList);
+        }
+    };
+
+    // newValue: { title, completed } รับค่ามาเป็น object
+    // updateTodo: { title:'Meeting', completed: false, 'ef231wqe356' }
+    const updateTodo = (newValue, id) => {
+        const idx = todoList.findIndex((el) => el.id === id);
+        if (idx !== -1) {
+            const oldTodoList = [...todoList];
+            // oldTodoList[idx] = { ...newValue, id };
+            oldTodoList[idx] = { ...oldTodoList[idx], ...newValue };
+            setTodoList(oldTodoList);
+        }
+    };
+
     return (
         <div className="container max-w-xs pt-5">
             <TodoInput createTodo={createTodo} />
-            {/* <Filter />
+            <Filter />
             <PageLimit />
-            <TodoList todoList={todoList} />
-            <Pagination /> */}
+            <TodoList
+                todoList={todoList}
+                removeTodo={removeTodo}
+                updateTodo={updateTodo}
+            />
+            <Pagination />
         </div>
     );
 }
