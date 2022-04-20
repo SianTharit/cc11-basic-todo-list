@@ -14,13 +14,13 @@ function Todo(props) {
             <div className="btn-group">
                 <Button color="outline-info">
                     <i
-                        class={`fa-solid fa-toggle-${
+                        className={`fa-solid fa-toggle-${
                             completed === true ? "on" : "off"
                         }`}
                     />
                 </Button>
                 <Button color="danger">
-                    <i class="fa-regular fa-trash-can" />
+                    <i className="fa-regular fa-trash-can" />
                 </Button>
             </div>
         </li>
